@@ -1,0 +1,11 @@
+packages:
+  - "packages/*"
+
+minimumReleaseAge: 1440
+blockExoticSubdeps: true
+trustPolicy: no-downgrade
+strictDepBuilds: true
+allowBuilds:
+  esbuild: true
+  lefthook: true
+  workerd: true

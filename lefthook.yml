@@ -1,0 +1,20 @@
+pre-commit:
+  parallel: true
+  jobs:
+    - name: format
+      glob: "*.{js,mjs,cjs,jsx,ts,mts,cts,tsx,json,jsonc,yaml,yml,md}"
+      run: pnpm exec oxfmt --write {staged_files}
+      stage_fixed: true
+
+    - name: lint
+      glob: "*.{js,mjs,cjs,jsx,ts,mts,cts,tsx}"
+      run: pnpm exec oxlint --fix --quiet {staged_files}
+      stage_fixed: true
+
+pre-push:
+  jobs:
+    - name: knip
+      run: pnpm knip
+
+    - name: test
+      run: pnpm -r run test
