@@ -1,4 +1,5 @@
-import {useEffect} from "react"
+import {useRef} from "react"
+import {useInterval} from "@/hooks/use-interval"
 
 const BASE_TITLE = "has-a.computer"
 const WORDS = [
@@ -13,61 +14,57 @@ const WORDS = [
   "hello",
   "echo",
 ]
-const GLITCH_CHARACTERS = "01_-/\\[]{}<>"
-const INITIAL_DELAY = 5000
-const HOLD_DURATION = 7000
-const SWIPE_DURATION = 1500
+const INITIAL_DELAY = 3000
+const HOLD_DURATION = 3000
+const SWIPE_DURATION = 2000
 const FRAME_INTERVAL = 75
+const GLITCH_CHARACTERS = "01_-/\\[]{}<>"
+const SWEEP_WIDTH = 3
+
+function getAnimatedTitle(t: number, from: string, to: string): string {
+  const progress = Math.max(0, Math.min(t / SWIPE_DURATION, 1))
+  const length = Math.max(from.length, to.length)
+  const edge = progress * (length + SWEEP_WIDTH)
+  const frame = Math.floor(Math.max(0, t) / FRAME_INTERVAL)
+  let prefix = ""
+
+  for (let index = 0; index < length; index++) {
+    if (edge >= index + SWEEP_WIDTH) {
+      prefix += to[index] ?? ""
+    } else if (edge > index) {
+      prefix += GLITCH_CHARACTERS[(frame + index) % GLITCH_CHARACTERS.length]
+    } else {
+      prefix += from[index] ?? ""
+    }
+  }
+
+  return prefix ? `${prefix}.${BASE_TITLE}` : BASE_TITLE
+}
 
 export function useAnimatedTitle() {
-  useEffect(() => {
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
-    let timer = 0
-    let currentWord = ""
+  const animation = useRef({from: "", to: "", startsAt: INITIAL_DELAY})
+  const startedAt = useRef<number | null>(null)
 
-    function cycleWord() {
-      const choices = WORDS.filter((word) => word !== currentWord)
-      const nextWord = choices[Math.floor(Math.random() * choices.length)]
-      const length = Math.max(currentWord.length, nextWord.length)
-      const startedAt = performance.now()
+  useInterval(() => {
+    const now = performance.now()
+    startedAt.current ??= now
+    const t = now - startedAt.current
+    const state = animation.current
+    if (t < state.startsAt) return
 
-      function step() {
-        const progress = Math.min((performance.now() - startedAt) / SWIPE_DURATION, 1)
-
-        if (reducedMotion.matches || progress === 1) {
-          currentWord = nextWord
-          document.title = `${nextWord}.${BASE_TITLE}`
-          timer = window.setTimeout(cycleWord, HOLD_DURATION)
-          return
-        }
-
-        // A narrow band of scrambled characters sweeps across the prefix.
-        const edge = progress * (length + 3)
-        let prefix = ""
-
-        for (let index = 0; index < length; index++) {
-          if (edge >= index + 3) {
-            prefix += nextWord[index] ?? ""
-          } else if (edge > index) {
-            prefix += GLITCH_CHARACTERS[Math.floor(Math.random() * GLITCH_CHARACTERS.length)]
-          } else {
-            prefix += currentWord[index] ?? ""
-          }
-        }
-
-        document.title = prefix ? `${prefix}.${BASE_TITLE}` : BASE_TITLE
-        timer = window.setTimeout(step, FRAME_INTERVAL)
-      }
-
-      step()
+    if (!state.to) {
+      const choices = WORDS.filter((word) => word !== state.from)
+      state.to = choices[Math.floor(Math.random() * choices.length)]
+      state.startsAt = t
     }
 
-    document.title = BASE_TITLE
-    timer = window.setTimeout(cycleWord, INITIAL_DELAY)
+    const elapsed = t - state.startsAt
+    document.title = getAnimatedTitle(elapsed, state.from, state.to)
 
-    return () => {
-      window.clearTimeout(timer)
-      document.title = BASE_TITLE
+    if (elapsed >= SWIPE_DURATION) {
+      state.from = state.to
+      state.to = ""
+      state.startsAt = t + HOLD_DURATION
     }
-  }, [])
+  }, FRAME_INTERVAL)
 }
