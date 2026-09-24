@@ -28,7 +28,10 @@ function DialogOverlay({
   return (
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"
-      className={cn("dialog-overlay", className)}
+      className={cn(
+        "fixed inset-0 z-60 animate-[fade-in_220ms_ease-out] bg-[#15394d45] [backdrop-filter:blur(10px)] data-[state=closed]:animate-[overlay-out_180ms_ease-in]",
+        className,
+      )}
       {...props}
     />
   )
@@ -47,14 +50,24 @@ function DialogContent({
       <DialogOverlay />
       <DialogPrimitive.Content
         data-slot="dialog-content"
-        className={cn("site-dialog", className)}
+        className={cn(
+          "fixed top-1/2 left-1/2 z-61 max-h-[calc(100svh-48px)] w-[min(460px,calc(100%-32px))] animate-[dialog-in_280ms_var(--ease-reveal)] overflow-y-auto rounded-[22px] border border-white bg-white px-8 pt-9 pb-7 text-(--site-ink) [box-shadow:0_24px_100px_#14476830] [outline:none] [transform:translate(-50%,-50%)] data-[state=closed]:pointer-events-none data-[state=closed]:animate-[dialog-out_180ms_ease-in] mobile:px-6 mobile:pb-[26px] tiny:px-[19px]",
+          className,
+        )}
         {...props}
       >
         {children}
         {showCloseButton && (
           <DialogPrimitive.Close data-slot="dialog-close" asChild>
-            <Button variant="ghost" className="dialog-close" size="icon-sm">
-              <RiCloseLine className="size-5" aria-hidden="true" />
+            <Button
+              variant="ghost"
+              className="group/close absolute top-3 right-3 size-[30px] rounded-[50%] p-0 text-[#657b87] [&:hover]:text-[#657b87] [&:hover]:bg-[#edf7fb] [&:hover]:bg-clip-border"
+              size="icon-sm"
+            >
+              <RiCloseLine
+                className="size-5 [transition:rotate_180ms_var(--ease-reveal)] group-hocus/close:rotate-90"
+                aria-hidden="true"
+              />
               <span className="sr-only">Close dialog</span>
             </Button>
           </DialogPrimitive.Close>
@@ -98,7 +111,7 @@ function DialogTitle({className, ...props}: React.ComponentProps<typeof DialogPr
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn("dialog-title", className)}
+      className={cn("pr-[22px] font-brand text-[26px] font-extrabold tracking-[-0.7px]", className)}
       {...props}
     />
   )
@@ -112,7 +125,7 @@ function DialogDescription({
     <DialogPrimitive.Description
       data-slot="dialog-description"
       className={cn(
-        "dialog-description *:[a]:underline *:[a]:underline-offset-3 *:[a]:hover:text-foreground",
+        "text-[13px] leading-[1.7] text-(--site-muted) *:[a]:underline *:[a]:underline-offset-3 *:[a]:hover:text-foreground",
         className,
       )}
       {...props}
