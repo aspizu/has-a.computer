@@ -1,3 +1,11 @@
 {
-  "$schema": "./node_modules/knip/schema.json"
+  "$schema": "./node_modules/knip/schema.json",
+  "workspaces": {
+    "packages/www": {
+      "ignoreIssues": {
+        "src/components/ui/**": ["exports", "types"]
+      },
+      "ignoreDependencies": ["@has-a-computer/common"]
+    }
+  }
 }

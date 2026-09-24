@@ -1,10 +1,17 @@
 import {useRef, useState} from "react"
 import {RiArrowRightUpLine} from "@remixicon/react"
-import type {OpenPanel} from "@/components/App"
+import type {OpenClaim} from "@/components/App"
 import {DomainPeriod} from "@/components/domain-period"
 import {HeroArtwork} from "@/components/hero-artwork"
+import {Button} from "@/components/ui/button"
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupText,
+} from "@/components/ui/input-group"
 
-export function Hero({onOpen}: {onOpen: OpenPanel}) {
+export function Hero({onOpen}: {onOpen: OpenClaim}) {
   const [name, setName] = useState("")
   const submitButton = useRef<HTMLButtonElement>(null)
 
@@ -32,11 +39,11 @@ export function Hero({onOpen}: {onOpen: OpenPanel}) {
           className="hero-actions"
           onSubmit={(event) => {
             event.preventDefault()
-            if (submitButton.current) onOpen("claim", submitButton.current, name)
+            if (submitButton.current) onOpen(submitButton.current, name)
           }}
         >
-          <div className="hero-domain-field">
-            <input
+          <InputGroup className="hero-domain-field">
+            <InputGroupInput
               className="hero-input"
               type="text"
               name="subdomain"
@@ -51,16 +58,18 @@ export function Hero({onOpen}: {onOpen: OpenPanel}) {
               spellCheck={false}
               maxLength={63}
             />
-            <div className="hero-domain-suffix" id="hero-domain-suffix">
-              <DomainPeriod />
-              has-a
-              <DomainPeriod />
-              computer
-            </div>
-          </div>
-          <button ref={submitButton} type="submit" className="hero-button hero-button-primary">
-            Reserve subdomain <RiArrowRightUpLine size={15} aria-hidden="true" />
-          </button>
+            <InputGroupAddon align="inline-end">
+              <InputGroupText className="hero-domain-suffix" id="hero-domain-suffix">
+                <DomainPeriod />
+                has-a
+                <DomainPeriod />
+                computer
+              </InputGroupText>
+            </InputGroupAddon>
+          </InputGroup>
+          <Button ref={submitButton} type="submit" className="hero-button">
+            Reserve subdomain <RiArrowRightUpLine className="size-[15px]" aria-hidden="true" />
+          </Button>
         </form>
       </div>
     </section>

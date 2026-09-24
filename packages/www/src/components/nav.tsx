@@ -1,5 +1,6 @@
-import type {OpenPanel} from "@/components/App"
+import type {OpenClaim} from "@/components/App"
 import {Brand} from "@/components/brand"
+import {Button} from "@/components/ui/button"
 
 const links: {label: string; href: string}[] = [
   {label: "Terms of Service", href: "#"},
@@ -8,7 +9,7 @@ const links: {label: string; href: string}[] = [
   {label: "Discord", href: "#"},
 ]
 
-export function Nav({onOpen}: {onOpen: OpenPanel}) {
+export function Nav({onOpen}: {onOpen: OpenClaim}) {
   return (
     <header className="site-header">
       <Brand />
@@ -20,13 +21,13 @@ export function Nav({onOpen}: {onOpen: OpenPanel}) {
             </a>
           ))}
         </div>
-        <button
+        <Button
           type="button"
           className="nav-register"
-          onClick={(event) => onOpen("claim", event.currentTarget)}
+          onClick={(event) => onOpen(event.currentTarget)}
         >
           Get a name
-        </button>
+        </Button>
       </nav>
     </header>
   )
