@@ -1,4 +1,4 @@
-import {useRef, useState} from "react"
+import {useLayoutEffect, useRef, useState} from "react"
 import {RiArrowRightUpLine} from "@remixicon/react"
 import type {OpenClaim} from "@/components/App"
 import {DomainPeriod} from "@/components/domain-period"
@@ -13,7 +13,20 @@ import {
 
 export function Hero({onOpen}: {onOpen: OpenClaim}) {
   const [name, setName] = useState("")
+  const [nameWidth, setNameWidth] = useState<number>()
+  const nameSizer = useRef<HTMLSpanElement>(null)
   const submitButton = useRef<HTMLButtonElement>(null)
+
+  useLayoutEffect(() => {
+    const sizer = nameSizer.current
+    if (!sizer) return
+
+    const measure = () => setNameWidth(Math.ceil(sizer.getBoundingClientRect().width) + 1)
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(sizer)
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <section className="hero" aria-labelledby="hero-heading">
@@ -43,8 +56,12 @@ export function Hero({onOpen}: {onOpen: OpenClaim}) {
           }}
         >
           <InputGroup className="hero-domain-field">
+            <span ref={nameSizer} className="hero-input-sizer" aria-hidden="true">
+              {name || "yourname"}
+            </span>
             <InputGroupInput
               className="hero-input"
+              style={{width: nameWidth}}
               type="text"
               name="subdomain"
               aria-label="Your subdomain"

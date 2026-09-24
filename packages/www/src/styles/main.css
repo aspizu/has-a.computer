@@ -569,9 +569,17 @@ button:focus-visible {
     background-color 150ms,
     box-shadow 150ms;
 }
-.hero-input {
+.hero-input,
+.hero-input-sizer {
   font-weight: 600;
-  field-sizing: content;
+}
+.hero-input-sizer {
+  position: absolute;
+  visibility: hidden;
+  white-space: pre;
+  pointer-events: none;
+}
+.hero-input {
   flex: 0 1 auto;
   width: auto;
   height: auto;
@@ -582,6 +590,7 @@ button:focus-visible {
   align-self: stretch;
   background: transparent;
   outline: none;
+  transition: width 220ms var(--ease-reveal);
 }
 .hero-domain-suffix {
   gap: 0;
