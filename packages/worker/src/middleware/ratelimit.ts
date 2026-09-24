@@ -1,6 +1,7 @@
 import {createMiddleware} from "hono/factory"
+import type {Bindings} from "../utils/hono"
 
-export const rateLimit = createMiddleware<{Bindings: Env}>(async (c, next) => {
+export const rateLimit = createMiddleware<{Bindings: Bindings}>(async (c, next) => {
   const ip = c.req.header("cf-connecting-ip") ?? "unknown"
   const {success} = await c.env.RATE_LIMITER.limit({key: ip})
 

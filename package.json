@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "www:dev": "pnpm -F @has-a-computer/www dev",
+    "worker:dev": "pnpm -F @has-a-computer/worker dev",
     "build": "pnpm -r run build",
     "test": "pnpm -r run test",
     "typecheck": "pnpm -r run typecheck",
