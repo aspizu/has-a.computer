@@ -1,0 +1,16 @@
+# Sky landing artwork
+
+Generated as two separate assets with the built-in image_gen tool. No CLI or API fallback was used.
+
+- [Sky background](../packages/www/public/images/sky-background.png): 1586 × 992 PNG, edited from the earlier reference artwork to remove all foreground objects.
+- [Retro computer](../packages/www/public/images/retro-computer.png): 1254 × 1254 PNG with a transparent background, generated as a separate object.
+
+The computer and domain labels float independently over the sky. Domain labels, navigation, headline, and buttons are HTML. The layout adapts to small screens and disables motion when reduced motion is requested.
+
+## Final sky prompt
+
+Use case: precise-object-edit. Asset type: standalone sky background layer for a website. Input image is the edit target. Remove the glossy pink ring and all six portrait frames completely. Preserve only the beautiful cyan-blue sky and soft white wispy clouds from the reference. Preserve the original palette, with rich clear sky blue in the top half, airy pale turquoise in the middle, and a smooth natural fade to almost white along the bottom edge. A few fluffy cloud banks are mostly near the sides and bottom, with open clear blue sky at the center for live HTML content. Landscape 1600x1000 approximately, no other objects, no ring, no people, no computers, no text, no symbols, no logos. This is only the sky background layer; all other objects will be separate website elements.
+
+## Final computer prompt
+
+Use case: stylized-concept. Asset type: single isolated transparent-background 3D hero asset for a playful sky-blue website. Create a beautifully rendered floating original 1984 Macintosh-style compact desktop computer, recognizable warm ivory/beige boxy all-in-one body, slightly curved glass CRT screen, small horizontal floppy-disk slot below the screen on the right and narrow ventilation slots along the left side. A single small round power indicator and minimal details, no logo. Three-quarter view, showing the front and a little of the left side, camera slightly above, whole computer gently tilted counterclockwise about 10 degrees as if floating weightlessly. Body is warm off-white satin plastic with rounded molded corners, subtle authentic plastic texture and careful bevels. Screen is softly luminous sky-blue/turquoise with a very simple small white smiling pixel computer face (two square eyes and a stepped smile), absolutely no text. Delightful clean high-end 3D product illustration, pastel blue reflected light from the surroundings, soft bright studio lighting and gentle soft self-shadow, high quality physically rendered materials, tangible form. Match the gentle glossy playful 3D aesthetic of a modern link-in-bio landing page, but retain the real compact Macintosh proportions and retro details. Single computer only, no keyboard, no mouse, no cables, no stand, no base plane, no ground, no environment, no cloud, no ring, no extra objects. The ENTIRE background must be genuinely transparent with an alpha channel, including around all edges. No opaque backdrop or baked checkerboard. Center the full object with comfortable transparent margins on all sides, no cropping. Square image around 1024x1024.
