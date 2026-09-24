@@ -3,32 +3,32 @@ import {DomainPeriod} from "@/components/domain-period"
 
 const domains = [
   {
-    name: "homelab",
+    name: "everyone",
     className:
       "[--domain-x:24%] [--domain-y:28%] [--domain-tilt:-10deg] [--float-delay:-1s] [--reveal-delay:440ms] mobile:[--domain-x:28%] mobile:[--domain-y:36%] short-landscape:[--domain-x:75%] short-landscape:[--domain-y:23%]",
   },
   {
-    name: "maya",
+    name: "priyanshu",
     className:
       "[--domain-x:17%] [--domain-y:48%] [--domain-tilt:8deg] [--float-delay:-3s] [--reveal-delay:560ms] mobile:[--domain-x:73%] mobile:[--domain-y:70%] narrow:[--domain-y:60%] short-landscape:[--domain-x:78%] short-landscape:[--domain-y:80%]",
   },
   {
-    name: "my-server",
+    name: "sagnik",
     className:
       "[--domain-x:25%] [--domain-y:67%] [--domain-tilt:-7deg] [--float-delay:-2s] [--reveal-delay:680ms] mobile:hidden short-landscape:hidden",
   },
   {
-    name: "studio",
+    name: "tushar",
     className:
       "[--domain-x:77%] [--domain-y:28%] [--domain-tilt:9deg] [--float-delay:-4s] [--reveal-delay:500ms] mobile:[--domain-x:74%] mobile:[--domain-y:40%] short-landscape:hidden",
   },
   {
-    name: "alex",
+    name: "vishnu",
     className:
       "[--domain-x:83%] [--domain-y:48%] [--domain-tilt:-8deg] [--float-delay:-1.5s] [--reveal-delay:620ms] mobile:[--domain-x:25%] mobile:[--domain-y:66%] narrow:[--domain-y:56%] short-landscape:hidden",
   },
   {
-    name: "side-project",
+    name: "agent",
     className:
       "[--domain-x:76%] [--domain-y:67%] [--domain-tilt:7deg] [--float-delay:-3.5s] [--reveal-delay:740ms] mobile:hidden short-landscape:hidden",
   },
