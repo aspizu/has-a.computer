@@ -33,7 +33,7 @@ export function Nav() {
           data-cuelume-press
           className="h-auto animate-[blur-fade-in_600ms_var(--ease-reveal)_440ms_backwards] border-0 border-current bg-white bg-clip-border [border-style:none] px-5 py-2.5 text-[length:inherit] leading-[inherit] text-[#59656d] [box-shadow:0_1px_4px_#54a4c510] [&:hover]:bg-[#eaf2f5] tablet:px-[15px] tablet:py-2 mobile:absolute mobile:top-0 mobile:right-0 mobile:px-[13px] mobile:py-[9px] tiny:px-[11px] tiny:text-[10px]"
         >
-          Get a name
+          Reserve
         </Button>
       </nav>
     </header>

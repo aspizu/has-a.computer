@@ -1,5 +1,4 @@
 import {useLayoutEffect, useRef, useState} from "react"
-import {RiArrowRightUpLine} from "@remixicon/react"
 import {DomainPeriod} from "@/components/domain-period"
 import {HeroArtwork} from "@/components/hero-artwork"
 import {Button} from "@/components/ui/button"
@@ -19,7 +18,7 @@ export function Hero() {
     const sizer = nameSizer.current
     if (!sizer) return
 
-    const measure = () => setNameWidth(Math.ceil(sizer.getBoundingClientRect().width) + 1)
+    const measure = () => setNameWidth(Math.ceil(sizer.getBoundingClientRect().width))
     measure()
     const observer = new ResizeObserver(measure)
     observer.observe(sizer)
@@ -96,7 +95,7 @@ export function Hero() {
               {name || "yourname"}
             </span>
             <InputGroupInput
-              className="h-auto w-auto min-w-[1ch] flex-[0_1_auto] self-stretch bg-transparent p-0! text-[length:inherit] leading-[inherit] font-semibold [outline:none] [transition:width_220ms_var(--ease-reveal)] placeholder:text-[#94a3ab] md:text-[length:inherit] md:leading-[inherit]"
+              className="h-auto w-auto min-w-[1ch] flex-[0_1_auto] self-stretch bg-transparent p-0! text-[length:inherit] leading-[inherit] font-semibold [outline:none] placeholder:text-[#94a3ab] md:text-[length:inherit] md:leading-[inherit]"
               style={{width: nameWidth}}
               type="text"
               name="subdomain"
@@ -129,13 +128,9 @@ export function Hero() {
           <Button
             type="submit"
             data-cuelume-press
-            className="group/reserve h-auto min-h-[clamp(32px,2.5vw,44px)] gap-1.5 border border-[#ffffff33] bg-[#008aca] px-[clamp(15px,1.3vw,25px)] py-0 text-[clamp(10px,0.82vw,14px)] leading-normal text-white [background-image:radial-gradient(ellipse_70%_75%_at_50%_0%,#ffffff20,transparent_75%),radial-gradient(ellipse_65%_65%_at_50%_100%,#ffffff18,transparent_75%)] [box-shadow:0_4px_12px_#0089c325,inset_0_2px_4px_#ffffff28,inset_0_-2px_4px_#ffffff1e] [&:hover]:bg-[#0079b6] mobile:min-h-10 mobile:px-[17px] mobile:text-[11px] tiny:px-[14px] tiny:text-[10px] short-landscape:min-h-8 short-landscape:text-[10px]"
+            className="h-auto min-h-[clamp(32px,2.5vw,44px)] border border-[#ffffff33] bg-[#008aca] px-[clamp(15px,1.3vw,25px)] py-0 text-[clamp(10px,0.82vw,14px)] leading-normal text-white [background-image:radial-gradient(ellipse_70%_75%_at_50%_0%,#ffffff20,transparent_75%),radial-gradient(ellipse_65%_65%_at_50%_100%,#ffffff18,transparent_75%)] [box-shadow:0_4px_12px_#0089c325,inset_0_2px_4px_#ffffff28,inset_0_-2px_4px_#ffffff1e] [&:hover]:bg-[#0079b6] mobile:min-h-10 mobile:px-[17px] mobile:text-[11px] tiny:px-[14px] tiny:text-[10px] short-landscape:min-h-8 short-landscape:text-[10px]"
           >
-            Reserve subdomain{" "}
-            <RiArrowRightUpLine
-              className="size-[15px] [transition:translate_180ms_var(--ease-reveal)] group-focus-visible/reserve:[translate:2px_0] fine-hover:group-hover/reserve:[translate:2px_0]"
-              aria-hidden="true"
-            />
+            Reserve
           </Button>
         </form>
       </div>
