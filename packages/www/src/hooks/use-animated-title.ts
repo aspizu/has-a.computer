@@ -3,16 +3,26 @@ import {useInterval} from "@/hooks/use-interval"
 
 const BASE_TITLE = "has-a.computer"
 const WORDS = [
-  "alex",
-  "maya",
-  "pixel",
-  "homelab",
-  "orbit",
-  "studio",
-  "byte",
-  "nova",
-  "hello",
-  "echo",
+  "everyone",
+  "priyanshu",
+  "nisarga",
+  "sagnik",
+  "vishnu",
+  "abhi",
+  "manav",
+  "tushar",
+  "bhargav",
+  "your-mom",
+  "your-mom",
+  "your-sister",
+  "your-brother",
+  "your-friend",
+  "your-nemesis",
+  "agent",
+  "clanker",
+  "linus",
+  "cat",
+  "meowingtons",
 ]
 const INITIAL_DELAY = 3000
 const HOLD_DURATION = 3000
