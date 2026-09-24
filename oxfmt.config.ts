@@ -1,3 +1,3 @@
 import {defineConfig} from "oxfmt"
 
-export default defineConfig({semi: false, bracketSpacing: false})
+export default defineConfig({semi: false, bracketSpacing: false, printWidth: 100})

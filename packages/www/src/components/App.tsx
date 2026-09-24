@@ -1,23 +1,15 @@
-import {useRef, useState} from "react"
-import {ClaimForm} from "@/components/claim-form"
+import {useEffect} from "react"
+import {bind} from "cuelume"
 import {Hero} from "@/components/hero"
 import {Nav} from "@/components/nav"
-import {Dialog, DialogContent} from "@/components/ui/dialog"
 import {useAnimatedTitle} from "@/hooks/use-animated-title"
-
-export type OpenClaim = (trigger: HTMLButtonElement, name?: string) => void
 
 export default function App() {
   useAnimatedTitle()
-  const [open, setOpen] = useState(false)
-  const [claimName, setClaimName] = useState("")
-  const trigger = useRef<HTMLButtonElement | null>(null)
 
-  const openClaim: OpenClaim = (button, name = "") => {
-    trigger.current = button
-    setClaimName(name)
-    setOpen(true)
-  }
+  useEffect(() => {
+    bind()
+  }, [])
 
   return (
     <div className="h-dvh overflow-clip bg-[#f8fdff] text-(--site-ink) antialiased">
@@ -37,9 +29,9 @@ export default function App() {
           height="992"
           fetchPriority="high"
         />
-        <Nav onOpen={openClaim} />
+        <Nav />
         <main id="main">
-          <Hero onOpen={openClaim} />
+          <Hero />
         </main>
         <footer className="absolute right-4 bottom-[max(12px,env(safe-area-inset-bottom))] left-4 animate-[blur-fade-in_600ms_var(--ease-reveal)_840ms_backwards] text-center text-[11px] leading-[18px] text-(--site-muted)">
           made with{" "}
@@ -49,22 +41,13 @@ export default function App() {
           by{" "}
           <a
             href="https://aspiz.uk"
+            data-cuelume-press="tick"
             className="relative inline-block font-semibold text-inherit no-underline after:absolute after:right-0 after:bottom-0.5 after:left-0 after:h-px after:bg-current after:opacity-0 after:content-[''] hocus:after:opacity-50"
           >
             aspizu
           </a>
         </footer>
       </div>
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent
-          onCloseAutoFocus={(event) => {
-            event.preventDefault()
-            trigger.current?.focus()
-          }}
-        >
-          <ClaimForm key={claimName} initialName={claimName} />
-        </DialogContent>
-      </Dialog>
     </div>
   )
 }
