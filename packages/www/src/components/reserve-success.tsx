@@ -26,7 +26,7 @@ export function ReserveSuccess() {
       </DialogClose>
       <div className="relative mx-auto my-auto flex w-full max-w-md shrink-0 flex-col items-center py-10 text-center">
         <img
-          src="/images/retro-computer.png"
+          src="/images/reservation-mailbox.png"
           alt=""
           width="1254"
           height="1254"
