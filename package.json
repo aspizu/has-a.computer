@@ -6,6 +6,7 @@
   "scripts": {
     "www:dev": "pnpm -F @has-a-computer/www dev",
     "worker:dev": "pnpm -F @has-a-computer/worker dev",
+    "worker:deploy": "pnpm -F @has-a-computer/worker deploy",
     "build": "pnpm -r run build",
     "test": "pnpm -r run test",
     "typecheck": "pnpm -r run typecheck",

@@ -5,8 +5,7 @@
       "entry": ["src/components/ui/**/*.tsx"],
       "ignoreIssues": {
         "src/components/ui/**": ["exports", "types"]
-      },
-      "ignoreDependencies": ["@has-a-computer/common"]
+      }
     }
   }
 }

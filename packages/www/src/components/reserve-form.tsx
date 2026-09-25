@@ -1,6 +1,12 @@
-import {useState} from "react"
 import {useForm} from "@tanstack/react-form"
-import {z} from "zod"
+import {useMutation} from "@tanstack/react-query"
+import {
+  coverLetterSchema,
+  emailSchema,
+  reserveSchema,
+  subdomainSchema,
+  websiteSchema,
+} from "@has-a-computer/common"
 import {Button} from "@/components/ui/button"
 import {Field, FieldContent, FieldError, FieldLabel} from "@/components/ui/field"
 import {
@@ -13,36 +19,7 @@ import {Input} from "@/components/ui/input"
 import {Textarea} from "@/components/ui/textarea"
 import {DialogFooter} from "@/components/ui/dialog"
 import {Spinner} from "@/components/ui/spinner"
-
-const subdomainSchema = z.string().min(1, "Enter an address to reserve.")
-const emailSchema = z.email("Enter a valid email address.")
-
-const bareDomain = /^[a-z0-9-]+(\.[a-z0-9-]+)+(:\d+)?([/?#]\S*)?$/i
-
-const websiteSchema = z
-  .string()
-  .min(1, "Enter the URL of your current website.")
-  .refine(
-    (value) => value === "" || z.url().safeParse(value).success || bareDomain.test(value),
-    "Enter a valid URL.",
-  )
-
-const coverLetterSchema = z
-  .string()
-  .min(80, "Tell us a bit more. At least 80 characters.")
-  .max(2000, "Keep it under 2000 characters.")
-
-const reserveSchema = z.object({
-  subdomain: subdomainSchema,
-  email: emailSchema,
-  website: websiteSchema,
-  coverLetter: coverLetterSchema,
-})
-
-async function checkAvailability(_subdomain: string) {
-  await new Promise((resolve) => setTimeout(resolve, 500))
-  return Math.random() > 0.4
-}
+import {reserveAddress} from "@/lib/api"
 
 export function ReserveForm({
   initialSubdomain,
@@ -51,10 +28,9 @@ export function ReserveForm({
   initialSubdomain: string
   onReserved: () => void
 }) {
-  const [checked, setChecked] = useState<{
-    value: string
-    available: boolean
-  } | null>(null)
+  const reservation = useMutation({
+    mutationFn: reserveAddress,
+  })
   const form = useForm({
     defaultValues: {
       subdomain: initialSubdomain,
@@ -65,23 +41,12 @@ export function ReserveForm({
     validators: {
       onSubmit: reserveSchema,
     },
-    onSubmit: async () => {
-      await new Promise((resolve) => setTimeout(resolve, 600))
-      onReserved()
+    onSubmit: ({value}) => {
+      if (!reservation.isPending) {
+        reservation.mutate(value, {onSuccess: onReserved})
+      }
     },
   })
-
-  const checkAvailable = async ({value}: {value: string}) => {
-    if (!subdomainSchema.safeParse(value).success) {
-      setChecked(null)
-      return
-    }
-    const available = await checkAvailability(value)
-    setChecked({value, available})
-    if (!available) {
-      return {message: `${value}.has-a.computer is already taken.`}
-    }
-  }
 
   return (
     <form
@@ -93,23 +58,9 @@ export function ReserveForm({
       }}
       noValidate
     >
-      <form.Field
-        name="subdomain"
-        validators={{
-          onChange: subdomainSchema,
-          onChangeAsync: checkAvailable,
-        }}
-        asyncDebounceMs={400}
-      >
+      <form.Field name="subdomain" validators={{onChange: subdomainSchema}}>
         {(field) => {
           const value = field.state.value
-          const isChecked = checked?.value === value
-          const available = isChecked && checked.available
-          const checking =
-            !available &&
-            !isChecked &&
-            field.state.meta.isDirty &&
-            subdomainSchema.safeParse(value).success
           return (
             <Field data-invalid={field.state.meta.errors.length > 0 || undefined}>
               <FieldLabel htmlFor={field.name}>Address</FieldLabel>
@@ -133,16 +84,6 @@ export function ReserveForm({
                     <InputGroupText>.has-a.computer</InputGroupText>
                   </InputGroupAddon>
                 </InputGroup>
-                {available ? (
-                  <p className="text-left text-xs/relaxed font-normal text-[#0f8a5f]">
-                    {value}.has-a.computer is available.
-                  </p>
-                ) : checking ? (
-                  <p className="text-left text-xs/relaxed font-normal text-muted-foreground">
-                    <Spinner className="mr-1 inline-block size-3 align-[-1px]" />
-                    Checking availability...
-                  </p>
-                ) : null}
                 <FieldError errors={field.state.meta.errors} />
               </FieldContent>
             </Field>
@@ -214,6 +155,7 @@ export function ReserveForm({
           </Field>
         )}
       </form.Field>
+      {reservation.error && <FieldError>{reservation.error.message}</FieldError>}
       <form.Subscribe
         selector={(state) => ({
           canSubmit: state.canSubmit,
@@ -222,8 +164,13 @@ export function ReserveForm({
       >
         {({canSubmit, isSubmitting}) => (
           <DialogFooter>
-            <Button type="submit" data-cuelume-press disabled={!canSubmit} className="h-8">
-              {isSubmitting && <Spinner className="size-3.5" />}
+            <Button
+              type="submit"
+              data-cuelume-press
+              disabled={!canSubmit || isSubmitting || reservation.isPending}
+              className="h-8"
+            >
+              {(isSubmitting || reservation.isPending) && <Spinner className="size-3.5" />}
               Send request
             </Button>
           </DialogFooter>
