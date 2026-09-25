@@ -89,6 +89,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build Worker and dependencies
+        run: pnpm -F @has-a-computer/worker... run build
+
       - name: Deploy Worker
         run: pnpm -F @has-a-computer/worker run deploy
         env:
