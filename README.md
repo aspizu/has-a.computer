@@ -4,10 +4,14 @@
   </a>
 </p>
 
-<h1 align="center">
-  <img src="packages/www/public/favicon.svg" alt="" width="32" height="32" />
-  has-a.computer
-</h1>
+<p align="center">
+  <a href="https://has-a.computer">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset=".github/readme/logo-dark.svg" />
+      <img src=".github/readme/logo-light.svg" alt="has-a.computer" width="420" />
+    </picture>
+  </a>
+</p>
 
 <p align="center">
   <strong>A free address for your computer.</strong><br />
