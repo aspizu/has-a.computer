@@ -2,6 +2,7 @@ import {useEffect, useState} from "react"
 import {bind} from "cuelume"
 import {RouterProvider} from "@tanstack/react-router"
 import {ReserveForm} from "@/components/reserve-form"
+import {ReserveSuccess} from "@/components/reserve-success"
 import {
   Dialog,
   DialogContent,
@@ -13,35 +14,55 @@ import {router} from "@/router"
 
 export default function App() {
   const [reserve, setReserve] = useState<{
-    open: boolean
+    step: "closed" | "form" | "success"
     subdomain: string
-  }>({open: false, subdomain: ""})
+  }>({step: "closed", subdomain: ""})
 
   useEffect(() => {
     bind()
   }, [])
 
-  const onReserve = (subdomain: string) => setReserve({open: true, subdomain})
+  useEffect(() => {
+    if (!import.meta.env.DEV) return
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.altKey && event.shiftKey && event.code === "KeyS") {
+        event.preventDefault()
+        setReserve({step: "success", subdomain: ""})
+      }
+    }
+
+    window.addEventListener("keydown", onKeyDown)
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [])
+
+  const onReserve = (subdomain: string) => setReserve({step: "form", subdomain})
 
   return (
     <>
       <RouterProvider router={router} context={{onReserve}} />
       <Dialog
-        open={reserve.open}
-        onOpenChange={(open) => setReserve((current) => ({...current, open}))}
+        open={reserve.step !== "closed"}
+        onOpenChange={(open) => {
+          if (!open) setReserve({step: "closed", subdomain: ""})
+        }}
       >
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Request to reserve an address</DialogTitle>
-            <DialogDescription>
-              We review every request by hand and will get back to you by email.
-            </DialogDescription>
-          </DialogHeader>
-          <ReserveForm
-            initialSubdomain={reserve.subdomain}
-            onReserved={() => setReserve({open: false, subdomain: ""})}
-          />
-        </DialogContent>
+        {reserve.step === "success" ? (
+          <ReserveSuccess />
+        ) : (
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Request to reserve an address</DialogTitle>
+              <DialogDescription>
+                We review every request by hand and will get back to you by email.
+              </DialogDescription>
+            </DialogHeader>
+            <ReserveForm
+              initialSubdomain={reserve.subdomain}
+              onReserved={() => setReserve({step: "success", subdomain: ""})}
+            />
+          </DialogContent>
+        )}
       </Dialog>
     </>
   )
