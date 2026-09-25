@@ -135,10 +135,7 @@ export function ReserveForm({form, reservation}: ReturnType<typeof useReserveFor
           </Field>
         )}
       </form.Field>
-      <form.Field
-        name="coverLetter"
-        validators={{onBlur: coverLetterSchema, onSubmit: coverLetterSchema}}
-      >
+      <form.Field name="coverLetter" validators={{onChange: coverLetterSchema}}>
         {(field) => (
           <Field data-invalid={field.state.meta.errors.length > 0 || undefined}>
             <FieldLabel htmlFor={field.name}>Cover letter</FieldLabel>
