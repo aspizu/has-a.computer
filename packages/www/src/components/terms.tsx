@@ -73,7 +73,7 @@ export function TermsPage({onReserve}: {onReserve: () => void}) {
               </li>
               <li>
                 <b>"Subdomain"</b> refers to any subdomain registered under the{" "}
-                <code className="rounded bg-[#007cbb14] px-1 py-0.5 font-mono text-[15px]">
+                <code className="inline-block rounded bg-[#007cbb14] px-1.5 py-0.5 font-mono text-[13px]/tight shadow-[0_0_4px_#007cbb0a]">
                   has-a.computer
                 </code>{" "}
                 domain.
@@ -81,11 +81,11 @@ export function TermsPage({onReserve}: {onReserve: () => void}) {
               <li>
                 <b>"Root subdomain"</b> refers to the primary registered subdomain itself, excluding
                 any nested subdomains. For example,{" "}
-                <code className="rounded bg-[#007cbb14] px-1 py-0.5 font-mono text-[15px]">
+                <code className="inline-block rounded bg-[#007cbb14] px-1.5 py-0.5 font-mono text-[13px]/tight shadow-[0_0_4px_#007cbb0a]">
                   example.has-a.computer
                 </code>{" "}
                 is a root subdomain, while{" "}
-                <code className="rounded bg-[#007cbb14] px-1 py-0.5 font-mono text-[15px]">
+                <code className="inline-block rounded bg-[#007cbb14] px-1.5 py-0.5 font-mono text-[13px]/tight shadow-[0_0_4px_#007cbb0a]">
                   blog.example.has-a.computer
                 </code>{" "}
                 is a <b>"nested subdomain"</b>.

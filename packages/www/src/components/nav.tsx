@@ -4,7 +4,7 @@ import {cn} from "@/lib/utils"
 
 const links: {label: string; href: string}[] = [
   {label: "Terms of Service", href: "/terms"},
-  {label: "Contact Us", href: "#"},
+  {label: "Contact Us", href: "mailto:admin@has-a.computer"},
   {label: "GitHub", href: "https://github.com/aspizu/has-a.computer"},
   {label: "Discord", href: "https://discord.gg/mKQqsJ6UtK"},
 ]
@@ -57,10 +57,10 @@ export function Nav({
           data-cuelume-press
           onClick={onReserve}
           className={cn(
-            "h-auto px-5 py-2.5 text-[length:inherit] leading-[inherit]",
+            "h-auto animate-[blur-fade-in_600ms_var(--ease-reveal)_440ms_backwards] px-5 py-2.5 text-[length:inherit] leading-[inherit]",
             plain
               ? "rounded-full bg-[#008aca] text-white hover:bg-[#0079b6] mobile:px-[13px] mobile:py-[9px]"
-              : "animate-[blur-fade-in_600ms_var(--ease-reveal)_440ms_backwards] rounded-full border-0 border-current bg-white bg-clip-border [border-style:none] text-[#59656d] [box-shadow:0_1px_4px_#54a4c510] [&:hover]:bg-[#eaf2f5] tablet:px-[15px] tablet:py-2 mobile:absolute mobile:top-0 mobile:right-0 mobile:px-[13px] mobile:py-[9px] tiny:px-[11px] tiny:text-[10px]",
+              : "rounded-full border-0 border-current bg-white bg-clip-border [border-style:none] text-[#59656d] [box-shadow:0_1px_4px_#54a4c510] [&:hover]:bg-[#eaf2f5] tablet:px-[15px] tablet:py-2 mobile:absolute mobile:top-0 mobile:right-0 mobile:px-[13px] mobile:py-[9px] tiny:px-[11px] tiny:text-[10px]",
           )}
         >
           Reserve
