@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react"
 import {bind} from "cuelume"
 import {RouterProvider} from "@tanstack/react-router"
-import {ReserveForm} from "@/components/reserve-form"
+import {ReserveForm, useReserveForm} from "@/components/reserve-form"
 import {ReserveSuccess} from "@/components/reserve-success"
 import {
   Dialog,
@@ -13,10 +13,8 @@ import {
 import {router} from "@/router"
 
 export default function App() {
-  const [reserve, setReserve] = useState<{
-    step: "closed" | "form" | "success"
-    subdomain: string
-  }>({step: "closed", subdomain: ""})
+  const [reserveStep, setReserveStep] = useState<"closed" | "form" | "success">("closed")
+  const {form, reservation} = useReserveForm(() => setReserveStep("success"))
 
   useEffect(() => {
     bind()
@@ -28,7 +26,7 @@ export default function App() {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.altKey && event.shiftKey && event.code === "KeyS") {
         event.preventDefault()
-        setReserve({step: "success", subdomain: ""})
+        setReserveStep("success")
       }
     }
 
@@ -36,18 +34,21 @@ export default function App() {
     return () => window.removeEventListener("keydown", onKeyDown)
   }, [])
 
-  const onReserve = (subdomain: string) => setReserve({step: "form", subdomain})
+  const onReserve = (subdomain: string) => {
+    if (subdomain && !reservation.isPending) form.setFieldValue("subdomain", subdomain)
+    setReserveStep("form")
+  }
 
   return (
     <>
       <RouterProvider router={router} context={{onReserve}} />
       <Dialog
-        open={reserve.step !== "closed"}
+        open={reserveStep !== "closed"}
         onOpenChange={(open) => {
-          if (!open) setReserve({step: "closed", subdomain: ""})
+          if (!open) setReserveStep("closed")
         }}
       >
-        {reserve.step === "success" ? (
+        {reserveStep === "success" ? (
           <ReserveSuccess />
         ) : (
           <DialogContent>
@@ -57,10 +58,7 @@ export default function App() {
                 We review every request by hand and will get back to you by email.
               </DialogDescription>
             </DialogHeader>
-            <ReserveForm
-              initialSubdomain={reserve.subdomain}
-              onReserved={() => setReserve({step: "success", subdomain: ""})}
-            />
+            <ReserveForm form={form} reservation={reservation} />
           </DialogContent>
         )}
       </Dialog>

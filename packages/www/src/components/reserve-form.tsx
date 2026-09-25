@@ -21,19 +21,13 @@ import {DialogFooter} from "@/components/ui/dialog"
 import {Spinner} from "@/components/ui/spinner"
 import {reserveAddress} from "@/lib/api"
 
-export function ReserveForm({
-  initialSubdomain,
-  onReserved,
-}: {
-  initialSubdomain: string
-  onReserved: () => void
-}) {
+export function useReserveForm(onReserved: () => void) {
   const reservation = useMutation({
     mutationFn: reserveAddress,
   })
   const form = useForm({
     defaultValues: {
-      subdomain: initialSubdomain,
+      subdomain: "",
       email: "",
       website: "",
       coverLetter: "",
@@ -41,13 +35,22 @@ export function ReserveForm({
     validators: {
       onSubmit: reserveSchema,
     },
-    onSubmit: ({value}) => {
+    onSubmit: ({value, formApi}) => {
       if (!reservation.isPending) {
-        reservation.mutate(value, {onSuccess: onReserved})
+        reservation.mutate(value, {
+          onSuccess: () => {
+            formApi.reset()
+            onReserved()
+          },
+        })
       }
     },
   })
 
+  return {form, reservation}
+}
+
+export function ReserveForm({form, reservation}: ReturnType<typeof useReserveForm>) {
   return (
     <form
       className="grid gap-4"
