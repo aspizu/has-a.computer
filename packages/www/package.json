@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && mkdir -p dist/terms && cp dist/index.html dist/terms/index.html",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },

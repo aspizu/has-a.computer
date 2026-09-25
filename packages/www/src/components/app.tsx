@@ -77,7 +77,7 @@ export default function App() {
 
   return (
     <>
-      {path === "/terms" ? (
+      {path === "/terms" || path === "/terms/" ? (
         <TermsPage onReserve={() => setReserveOpen(true)} />
       ) : (
         <Landing name={name} setName={setName} onReserve={() => setReserveOpen(true)} />
