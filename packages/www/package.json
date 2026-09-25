@@ -17,6 +17,7 @@
     "@remixicon/react": "^4.9.0",
     "@tailwindcss/vite": "^4.3.3",
     "@tanstack/react-form": "^1.33.5",
+    "@tanstack/react-query": "^5.103.2",
     "@tanstack/react-router": "^1.170.39",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.4.0",
