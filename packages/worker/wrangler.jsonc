@@ -3,16 +3,14 @@
   "name": "has-a-computer-worker",
   "main": "src/index.ts",
   "compatibility_date": "2026-09-21",
-  "unsafe": {
-    "bindings": [
-      {
-        "name": "RATE_LIMITER",
-        "type": "ratelimit",
-        "simple": {
-          "limit": 60,
-          "period": 60,
-        },
+  "ratelimits": [
+    {
+      "name": "RATE_LIMITER",
+      "namespace_id": "2026092501",
+      "simple": {
+        "limit": 60,
+        "period": 60,
       },
-    ],
-  },
+    },
+  ],
 }
