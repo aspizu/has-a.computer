@@ -38,7 +38,7 @@ export function Hero() {
     <section aria-labelledby="hero-heading">
       <h1
         id="hero-heading"
-        className="absolute top-[15%] left-1/2 z-2 aspect-[137/71] w-[min(33vw,52dvh)] [transform:translateX(-50%)] mobile:top-[max(12%,84px)] mobile:w-[min(72vw,31dvh)] short-landscape:top-[21%] short-landscape:left-[34%] short-landscape:w-[min(29vw,40dvh)]"
+        className="absolute top-[15%] left-1/2 z-2 aspect-[137/71] w-[min(33vw,52dvh)] [transform:translateX(-50%)] mobile:top-[max(17%,118px)] mobile:w-[min(72vw,31dvh)] short-landscape:top-[21%] short-landscape:left-[34%] short-landscape:w-[min(29vw,40dvh)]"
       >
         <span className="sr-only">give your computer an address</span>
         <img
