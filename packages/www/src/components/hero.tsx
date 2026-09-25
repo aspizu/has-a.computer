@@ -9,15 +9,8 @@ import {
   InputGroupText,
 } from "@/components/ui/input-group"
 
-export function Hero({
-  name,
-  setName,
-  onReserve,
-}: {
-  name: string
-  setName: (name: string) => void
-  onReserve: () => void
-}) {
+export function Hero({onReserve}: {onReserve: (subdomain: string) => void}) {
+  const [name, setName] = useState("")
   const [nameWidth, setNameWidth] = useState<number>()
   const nameSizer = useRef<HTMLSpanElement>(null)
 
@@ -91,7 +84,7 @@ export function Hero({
           className="mt-[clamp(13px,1.25vw,22px)] flex animate-[reveal-in_650ms_var(--ease-reveal)_720ms_backwards] flex-wrap items-center justify-center gap-2.5 mobile:mt-[clamp(12px,2.5dvh,20px)] mobile:gap-2 short-landscape:mt-3"
           onSubmit={(event) => {
             event.preventDefault()
-            onReserve()
+            onReserve(name)
           }}
         >
           <InputGroup className="h-auto min-h-[clamp(32px,2.5vw,44px)] w-fit max-w-full rounded-[999px] border border-[#007cbb26] bg-[#ffffffb3] px-[clamp(12px,1.1vw,18px)] font-sans text-[clamp(11px,1vw,17px)] font-normal text-(--site-ink) [transition:border-color_150ms,background-color_150ms,box-shadow_150ms] focus-within:border-[#d1d5db]! focus-within:bg-white focus-within:[box-shadow:0_0_0_3px_#9ca3af13]! mobile:min-h-10 mobile:text-[10px] short-landscape:min-h-8 short-landscape:text-[10px]">

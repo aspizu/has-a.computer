@@ -1,4 +1,4 @@
-import {useRef} from "react"
+import {useEffect, useRef} from "react"
 import {useInterval} from "@/hooks/use-interval"
 
 const BASE_TITLE = "has-a.computer"
@@ -54,6 +54,10 @@ function getAnimatedTitle(t: number, from: string, to: string): string {
 export function useAnimatedTitle() {
   const animation = useRef({from: "", to: "", startsAt: INITIAL_DELAY})
   const startedAt = useRef<number | null>(null)
+
+  useEffect(() => {
+    document.title = BASE_TITLE
+  }, [])
 
   useInterval(() => {
     const now = performance.now()

@@ -1,3 +1,4 @@
+import {Link} from "@tanstack/react-router"
 import {Brand} from "@/components/brand"
 import {Button} from "@/components/ui/button"
 import {cn} from "@/lib/utils"
@@ -14,7 +15,7 @@ export function Nav({
   onReserve,
 }: {
   variant?: "sky" | "plain"
-  onReserve: () => void
+  onReserve: (subdomain: string) => void
 }) {
   const plain = variant === "plain"
 
@@ -36,26 +37,29 @@ export function Nav({
         )}
       >
         <div className="flex items-center gap-[inherit]">
-          {links.map(({label, href}) => (
-            <a
-              className={cn(
-                "relative animate-[blur-fade-in_600ms_var(--ease-reveal)_40ms_backwards] whitespace-nowrap [transition:color_150ms,opacity_150ms] after:absolute after:right-0 after:bottom-0.5 after:left-0 after:h-px after:bg-current after:opacity-0 after:content-[''] nth-1:[animation-delay:120ms] nth-2:[animation-delay:200ms] nth-3:[animation-delay:280ms] nth-4:[animation-delay:360ms] active:opacity-80 hocus:after:opacity-50",
-                plain
-                  ? "text-(--site-muted) hocus:text-(--site-link)"
-                  : "text-white hocus:text-[#cfe9f5]",
-              )}
-              data-cuelume-press="tick"
-              key={label}
-              href={href}
-            >
-              {label}
-            </a>
-          ))}
+          {links.map(({label, href}) => {
+            const className = cn(
+              "relative animate-[blur-fade-in_600ms_var(--ease-reveal)_40ms_backwards] whitespace-nowrap [transition:color_150ms,opacity_150ms] after:absolute after:right-0 after:bottom-0.5 after:left-0 after:h-px after:bg-current after:opacity-0 after:content-[''] nth-1:[animation-delay:120ms] nth-2:[animation-delay:200ms] nth-3:[animation-delay:280ms] nth-4:[animation-delay:360ms] active:opacity-80 hocus:after:opacity-50",
+              plain
+                ? "text-(--site-muted) hocus:text-(--site-link)"
+                : "text-white hocus:text-[#cfe9f5]",
+            )
+
+            return href.startsWith("/") ? (
+              <Link className={className} data-cuelume-press="tick" key={label} to={href}>
+                {label}
+              </Link>
+            ) : (
+              <a className={className} data-cuelume-press="tick" key={label} href={href}>
+                {label}
+              </a>
+            )
+          })}
         </div>
         <Button
           type="button"
           data-cuelume-press
-          onClick={onReserve}
+          onClick={() => onReserve("")}
           className={cn(
             "h-auto animate-[blur-fade-in_600ms_var(--ease-reveal)_440ms_backwards] px-5 py-2.5 text-[length:inherit] leading-[inherit]",
             plain

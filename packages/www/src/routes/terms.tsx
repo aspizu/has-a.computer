@@ -1,6 +1,11 @@
 import {useEffect} from "react"
+import {createFileRoute} from "@tanstack/react-router"
 import {Brand} from "@/components/brand"
 import {Nav} from "@/components/nav"
+
+export const Route = createFileRoute("/terms")({
+  component: TermsPage,
+})
 
 const CONTACT_EMAIL = "admin@has-a.computer"
 
@@ -27,7 +32,9 @@ function TermLink({href, children}: {href: string; children: React.ReactNode}) {
   )
 }
 
-export function TermsPage({onReserve}: {onReserve: () => void}) {
+function TermsPage() {
+  const {onReserve} = Route.useRouteContext()
+
   useEffect(() => {
     document.title = "Terms of Service | has-a.computer"
   }, [])
