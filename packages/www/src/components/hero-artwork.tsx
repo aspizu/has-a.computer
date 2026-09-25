@@ -87,7 +87,7 @@ export function HeroArtwork() {
       <div className="pointer-events-none absolute top-[34%] left-1/2 z-3 w-[min(27vw,40dvh)] animate-[reveal-in_800ms_var(--ease-reveal)_380ms_backwards] [transform:translateX(-50%)] mobile:top-[31%] mobile:w-[min(290px,76vw,35dvh)] short-landscape:top-[24%] short-landscape:left-[75%] short-landscape:w-[min(32vw,52dvh)]">
         <img
           className="block h-auto w-full animate-[computer-float_7s_ease-in-out_infinite] select-none [filter:drop-shadow(0_16px_16px_#2877971c)]"
-          src="/images/retro-computer.png"
+          src="/images/retro-computer.webp"
           alt="A floating retro computer with a smiling blue screen"
           width="1254"
           height="1254"

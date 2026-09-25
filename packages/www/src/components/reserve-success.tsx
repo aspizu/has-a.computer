@@ -9,7 +9,7 @@ export function ReserveSuccess() {
       className="inset-0 flex h-dvh max-w-none translate-0 flex-col overflow-y-auto rounded-none bg-[#f8fdff] p-6 text-(--site-ink) ring-0 sm:max-w-none data-open:zoom-in-100 data-closed:zoom-out-100"
     >
       <img
-        src="/images/sky-background.png"
+        src="/images/sky-background.webp"
         alt=""
         className="pointer-events-none absolute inset-0 size-full object-cover opacity-35 select-none"
       />
@@ -26,7 +26,7 @@ export function ReserveSuccess() {
       </DialogClose>
       <div className="relative mx-auto my-auto flex w-full max-w-md shrink-0 flex-col items-center py-10 text-center">
         <img
-          src="/images/reservation-mailbox.png"
+          src="/images/reservation-mailbox.webp"
           alt=""
           width="1254"
           height="1254"

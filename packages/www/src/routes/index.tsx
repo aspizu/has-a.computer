@@ -24,7 +24,7 @@ function RouteComponent() {
       <div className="relative isolate size-full overflow-hidden">
         <img
           className="pointer-events-none absolute inset-0 -z-1 size-full animate-[fade-in_900ms_ease-out] object-fill select-none [mask-image:linear-gradient(#000_85%,transparent)] mobile:object-cover"
-          src="/images/sky-background.png"
+          src="/images/sky-background.webp"
           alt=""
           aria-hidden="true"
           width="1586"
