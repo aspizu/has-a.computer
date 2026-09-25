@@ -38,10 +38,8 @@ export function ReserveSuccess() {
         <DialogDescription className="mt-4 max-w-xs animate-[reveal-in_650ms_var(--ease-reveal)_240ms_backwards] text-[13px]/relaxed text-(--site-ink)">
           Your request is in. We&apos;ll get back to you by email.
         </DialogDescription>
-        <div className="mt-8 flex animate-[reveal-in_650ms_var(--ease-reveal)_320ms_backwards] flex-col items-center gap-4">
-          <p className="text-[11px]/relaxed text-(--site-link)">
-            In the meantime, join our Discord server.
-          </p>
+        <div className="mt-8 flex animate-[reveal-in_650ms_var(--ease-reveal)_320ms_backwards] flex-col items-center gap-2">
+          <p className="text-[11px]/relaxed text-(--site-link)">In the meantime</p>
           <Button
             asChild
             className="h-11 gap-2 rounded-full border-[#ffffff33] px-6 text-sm [background-image:radial-gradient(ellipse_70%_75%_at_50%_0%,#ffffff20,transparent_75%),radial-gradient(ellipse_65%_65%_at_50%_100%,#ffffff18,transparent_75%)] [box-shadow:0_4px_12px_#0089c325,inset_0_2px_4px_#ffffff28,inset_0_-2px_4px_#ffffff1e] transition-[scale,background-color,box-shadow] duration-150 hover:bg-[#0079b6] active:scale-96 active:not-aria-[haspopup]:translate-y-0"
