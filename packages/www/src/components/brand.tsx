@@ -3,7 +3,7 @@ import {RiMacbookLine} from "@remixicon/react"
 export function Brand() {
   return (
     <a
-      href="#main"
+      href="/"
       className="group/brand inline-flex animate-[blur-fade-in_600ms_var(--ease-reveal)_40ms_backwards] items-center gap-[7px] font-brand text-[clamp(14px,1.35vw,23px)] font-[850] tracking-[-0.5px] whitespace-nowrap mobile:min-h-[34px] mobile:gap-[5px] mobile:self-start mobile:text-[15px] tiny:text-[13px]"
       aria-label="has-a.computer home"
     >

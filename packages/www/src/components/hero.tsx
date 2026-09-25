@@ -1,15 +1,7 @@
 import {useLayoutEffect, useRef, useState} from "react"
 import {DomainPeriod} from "@/components/domain-period"
 import {HeroArtwork} from "@/components/hero-artwork"
-import {ReserveForm} from "@/components/reserve-form"
 import {Button} from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
 import {
   InputGroup,
   InputGroupAddon,
@@ -17,10 +9,16 @@ import {
   InputGroupText,
 } from "@/components/ui/input-group"
 
-export function Hero() {
-  const [name, setName] = useState("")
+export function Hero({
+  name,
+  setName,
+  onReserve,
+}: {
+  name: string
+  setName: (name: string) => void
+  onReserve: () => void
+}) {
   const [nameWidth, setNameWidth] = useState<number>()
-  const [reserveOpen, setReserveOpen] = useState(false)
   const nameSizer = useRef<HTMLSpanElement>(null)
 
   useLayoutEffect(() => {
@@ -93,7 +91,7 @@ export function Hero() {
           className="mt-[clamp(13px,1.25vw,22px)] flex animate-[reveal-in_650ms_var(--ease-reveal)_720ms_backwards] flex-wrap items-center justify-center gap-2.5 mobile:mt-[clamp(12px,2.5dvh,20px)] mobile:gap-2 short-landscape:mt-3"
           onSubmit={(event) => {
             event.preventDefault()
-            setReserveOpen(true)
+            onReserve()
           }}
         >
           <InputGroup className="h-auto min-h-[clamp(32px,2.5vw,44px)] w-fit max-w-full rounded-[999px] border border-[#007cbb26] bg-[#ffffffb3] px-[clamp(12px,1.1vw,18px)] font-sans text-[clamp(11px,1vw,17px)] font-normal text-(--site-ink) [transition:border-color_150ms,background-color_150ms,box-shadow_150ms] focus-within:border-[#d1d5db]! focus-within:bg-white focus-within:[box-shadow:0_0_0_3px_#9ca3af13]! mobile:min-h-10 mobile:text-[10px] short-landscape:min-h-8 short-landscape:text-[10px]">
@@ -144,17 +142,6 @@ export function Hero() {
           </Button>
         </form>
       </div>
-      <Dialog open={reserveOpen} onOpenChange={setReserveOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Request to reserve an address</DialogTitle>
-            <DialogDescription>
-              We review every request by hand and will get back to you by email.
-            </DialogDescription>
-          </DialogHeader>
-          <ReserveForm initialSubdomain={name} onReserved={() => setReserveOpen(false)} />
-        </DialogContent>
-      </Dialog>
     </section>
   )
 }

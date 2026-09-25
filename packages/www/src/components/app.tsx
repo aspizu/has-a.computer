@@ -1,15 +1,29 @@
-import {useEffect} from "react"
+import {useEffect, useState} from "react"
 import {bind} from "cuelume"
 import {Hero} from "@/components/hero"
 import {Nav} from "@/components/nav"
+import {ReserveForm} from "@/components/reserve-form"
+import {TermsPage} from "@/components/terms"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import {usePath} from "@/hooks/use-path"
 import {useAnimatedTitle} from "@/hooks/use-animated-title"
 
-export default function App() {
+function Landing({
+  name,
+  setName,
+  onReserve,
+}: {
+  name: string
+  setName: (name: string) => void
+  onReserve: () => void
+}) {
   useAnimatedTitle()
-
-  useEffect(() => {
-    bind()
-  }, [])
 
   return (
     <div className="h-dvh overflow-clip bg-[#f8fdff] text-(--site-ink) antialiased">
@@ -29,9 +43,9 @@ export default function App() {
           height="992"
           fetchPriority="high"
         />
-        <Nav />
+        <Nav onReserve={onReserve} />
         <main id="main">
-          <Hero />
+          <Hero name={name} setName={setName} onReserve={onReserve} />
         </main>
         <footer className="absolute right-4 bottom-[max(12px,env(safe-area-inset-bottom))] left-4 animate-[blur-fade-in_600ms_var(--ease-reveal)_840ms_backwards] text-center text-[11px] leading-[18px] text-(--site-muted)">
           made with{" "}
@@ -49,5 +63,36 @@ export default function App() {
         </footer>
       </div>
     </div>
+  )
+}
+
+export default function App() {
+  const path = usePath()
+  const [name, setName] = useState("")
+  const [reserveOpen, setReserveOpen] = useState(false)
+
+  useEffect(() => {
+    bind()
+  }, [])
+
+  return (
+    <>
+      {path === "/terms" ? (
+        <TermsPage onReserve={() => setReserveOpen(true)} />
+      ) : (
+        <Landing name={name} setName={setName} onReserve={() => setReserveOpen(true)} />
+      )}
+      <Dialog open={reserveOpen} onOpenChange={setReserveOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Request to reserve an address</DialogTitle>
+            <DialogDescription>
+              We review every request by hand and will get back to you by email.
+            </DialogDescription>
+          </DialogHeader>
+          <ReserveForm initialSubdomain={name} onReserved={() => setReserveOpen(false)} />
+        </DialogContent>
+      </Dialog>
+    </>
   )
 }
