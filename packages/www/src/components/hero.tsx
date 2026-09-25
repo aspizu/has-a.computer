@@ -1,7 +1,15 @@
 import {useLayoutEffect, useRef, useState} from "react"
 import {DomainPeriod} from "@/components/domain-period"
 import {HeroArtwork} from "@/components/hero-artwork"
+import {ReserveForm} from "@/components/reserve-form"
 import {Button} from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 import {
   InputGroup,
   InputGroupAddon,
@@ -12,6 +20,7 @@ import {
 export function Hero() {
   const [name, setName] = useState("")
   const [nameWidth, setNameWidth] = useState<number>()
+  const [reserveOpen, setReserveOpen] = useState(false)
   const nameSizer = useRef<HTMLSpanElement>(null)
 
   useLayoutEffect(() => {
@@ -84,6 +93,7 @@ export function Hero() {
           className="mt-[clamp(13px,1.25vw,22px)] flex animate-[reveal-in_650ms_var(--ease-reveal)_720ms_backwards] flex-wrap items-center justify-center gap-2.5 mobile:mt-[clamp(12px,2.5dvh,20px)] mobile:gap-2 short-landscape:mt-3"
           onSubmit={(event) => {
             event.preventDefault()
+            setReserveOpen(true)
           }}
         >
           <InputGroup className="h-auto min-h-[clamp(32px,2.5vw,44px)] w-fit max-w-full rounded-[999px] border border-[#007cbb26] bg-[#ffffffb3] px-[clamp(12px,1.1vw,18px)] font-sans text-[clamp(11px,1vw,17px)] font-normal text-(--site-ink) [transition:border-color_150ms,background-color_150ms,box-shadow_150ms] focus-within:border-[#d1d5db]! focus-within:bg-white focus-within:[box-shadow:0_0_0_3px_#9ca3af13]! mobile:min-h-10 mobile:text-[10px] short-landscape:min-h-8 short-landscape:text-[10px]">
@@ -95,7 +105,7 @@ export function Hero() {
               {name || "yourname"}
             </span>
             <InputGroupInput
-              className="h-auto w-auto min-w-[1ch] flex-[0_1_auto] self-stretch bg-transparent p-0! text-[length:inherit] leading-[inherit] font-semibold [outline:none] placeholder:text-[#94a3ab] md:text-[length:inherit] md:leading-[inherit]"
+              className="h-auto w-auto min-w-[1ch] flex-[0_1_auto] self-stretch bg-transparent p-0! text-[length:inherit] leading-[inherit] font-semibold [outline:none] placeholder:text-[#aeb9c0] md:text-[length:inherit] md:leading-[inherit]"
               style={{width: nameWidth}}
               type="text"
               name="subdomain"
@@ -128,12 +138,23 @@ export function Hero() {
           <Button
             type="submit"
             data-cuelume-press
-            className="h-auto min-h-[clamp(32px,2.5vw,44px)] border border-[#ffffff33] bg-[#008aca] px-[clamp(15px,1.3vw,25px)] py-0 text-[clamp(10px,0.82vw,14px)] leading-normal text-white [background-image:radial-gradient(ellipse_70%_75%_at_50%_0%,#ffffff20,transparent_75%),radial-gradient(ellipse_65%_65%_at_50%_100%,#ffffff18,transparent_75%)] [box-shadow:0_4px_12px_#0089c325,inset_0_2px_4px_#ffffff28,inset_0_-2px_4px_#ffffff1e] [&:hover]:bg-[#0079b6] mobile:min-h-10 mobile:px-[17px] mobile:text-[11px] tiny:px-[14px] tiny:text-[10px] short-landscape:min-h-8 short-landscape:text-[10px]"
+            className="h-auto min-h-[clamp(32px,2.5vw,44px)] rounded-full border border-[#ffffff33] bg-[#008aca] px-[clamp(15px,1.3vw,25px)] py-0 text-[clamp(10px,0.82vw,14px)] leading-normal text-white [background-image:radial-gradient(ellipse_70%_75%_at_50%_0%,#ffffff20,transparent_75%),radial-gradient(ellipse_65%_65%_at_50%_100%,#ffffff18,transparent_75%)] [box-shadow:0_4px_12px_#0089c325,inset_0_2px_4px_#ffffff28,inset_0_-2px_4px_#ffffff1e] [&:hover]:bg-[#0079b6] mobile:min-h-10 mobile:px-[17px] mobile:text-[11px] tiny:px-[14px] tiny:text-[10px] short-landscape:min-h-8 short-landscape:text-[10px]"
           >
             Reserve
           </Button>
         </form>
       </div>
+      <Dialog open={reserveOpen} onOpenChange={setReserveOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Request to reserve an address</DialogTitle>
+            <DialogDescription>
+              We review every request by hand and will get back to you by email.
+            </DialogDescription>
+          </DialogHeader>
+          <ReserveForm initialSubdomain={name} onReserved={() => setReserveOpen(false)} />
+        </DialogContent>
+      </Dialog>
     </section>
   )
 }
