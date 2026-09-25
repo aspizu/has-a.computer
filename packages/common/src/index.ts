@@ -31,7 +31,3 @@ export const reserveSchema = z.object({
 })
 
 export type ReserveRequest = z.infer<typeof reserveSchema>
-
-export function greet(name: string): string {
-  return `Hello, ${name}!`
-}

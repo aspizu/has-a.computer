@@ -1,7 +1,6 @@
 import {cors} from "hono/cors"
 import {rateLimit} from "./middleware/ratelimit"
 import reserve from "./routes/reserve"
-import root from "./routes/root"
 import {hono} from "./utils/hono"
 
 export default hono()
@@ -19,5 +18,4 @@ export default hono()
     }),
   )
   .use(rateLimit)
-  .route("/", root)
   .route("/reserve", reserve)

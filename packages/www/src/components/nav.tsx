@@ -63,7 +63,7 @@ export function Nav({
           className={cn(
             "h-auto animate-[blur-fade-in_600ms_var(--ease-reveal)_440ms_backwards] px-5 py-2.5 text-[length:inherit] leading-[inherit]",
             plain
-              ? "rounded-full bg-[#008aca] text-white hover:bg-[#0079b6] mobile:px-[13px] mobile:py-[9px]"
+              ? "rounded-full bg-[#008aca] text-white hover:bg-[#0079b6] mobile:absolute mobile:top-[clamp(16px,3dvh,24px)] mobile:right-[22px] mobile:px-[13px] mobile:py-[9px] tiny:right-4"
               : "rounded-full border-0 border-current bg-white bg-clip-border [border-style:none] text-[#59656d] [box-shadow:0_1px_4px_#54a4c510] [&:hover]:bg-[#eaf2f5] tablet:px-[15px] tablet:py-2 mobile:absolute mobile:top-0 mobile:right-0 mobile:px-[13px] mobile:py-[9px] tiny:px-[11px] tiny:text-[10px]",
           )}
         >
