@@ -2,6 +2,7 @@
   "$schema": "./node_modules/knip/schema.json",
   "workspaces": {
     "packages/www": {
+      "entry": ["src/components/ui/**/*.tsx"],
       "ignoreIssues": {
         "src/components/ui/**": ["exports", "types"]
       },
